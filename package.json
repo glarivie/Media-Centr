@@ -1,7 +1,8 @@
 {
   "name": "Media-Centr",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "main": "src/electron-starter.js",
   "devDependencies": {
     "electron": "^1.6.2",
     "react-scripts": "0.9.5"
