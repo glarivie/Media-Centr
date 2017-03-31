@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import cx from 'classnames'
 
 import actions from '../../actions'
 
@@ -35,10 +34,7 @@ class App extends Component {
 
     return (
       <div className="App" ref={c => this._app = c}>
-        <main>
-          YOLO
-          {children}
-        </main>
+        {children}
       </div>
     )
   }
