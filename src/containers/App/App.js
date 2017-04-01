@@ -1,16 +1,18 @@
 import React, { PropTypes, Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
-import _ from 'lodash'
+
+import Navigation from '../../components/Navigation'
 
 import actions from '../../actions'
 
-import './App.css'
+import './App.scss'
 
 class App extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     dispatch: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -30,10 +32,11 @@ class App extends Component {
   }
 
   render() {
-    const { children } = this.props
+    const { children, location } = this.props
 
     return (
       <div className="App" ref={c => this._app = c}>
+        <Navigation pathname={location.pathname} />
         {children}
       </div>
     )

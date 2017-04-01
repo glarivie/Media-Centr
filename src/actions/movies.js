@@ -2,6 +2,8 @@ import axios from 'axios'
 import tnp from 'torrent-name-parser'
 import { mapKeys } from 'lodash'
 
+import { uniqueID } from '../helpers'
+
 const fetchMoviesInfos = files => async dispatch => {
   dispatch({ type: 'FETCH_MOVIES_INFOS_PENDING' })
 
@@ -17,7 +19,11 @@ const fetchMoviesInfos = files => async dispatch => {
 
       if (status !== 200) continue
 
-      movies[index] = { ...movies[index], ...mapKeys(data, (_v, key) => key.toLowerCase()) }
+      movies[index] = {
+        ...movies[index],
+        ...mapKeys(data, (_v, key) => key.toLowerCase()),
+        _id: uniqueID(),
+      }
     }
 
     dispatch({ type: 'FETCH_MOVIES_INFOS_SUCCESS', data: movies })

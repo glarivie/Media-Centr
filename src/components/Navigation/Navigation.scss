@@ -1,0 +1,29 @@
+@import '../../styles/shared/variables.scss';
+
+.Navigation {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  align-items: center;
+  align-content: center;
+  padding-top: 42px;
+  background-color: $secondary;
+
+  .item {
+    padding: 15px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+    &.active, &:hover {
+      background-color: $dark;
+    }
+  }
+}

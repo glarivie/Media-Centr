@@ -1,18 +1,17 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { render } from 'react-dom'
-import { Router, useRouterHistory } from 'react-router'
-import { createHistory } from 'history'
+import { Router } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 // Main global stylesheet
-import './styles/main.css'
+import './styles/main.scss'
 
 import configureStore from './configureStore'
 import router from './router'
+import browserHistory from './browserHistory'
 
 const store = configureStore()
-const browserHistory = useRouterHistory(createHistory)({ basename: '' })
 const history = syncHistoryWithStore(browserHistory, store)
 
 render(

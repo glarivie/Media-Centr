@@ -1,0 +1,25 @@
+@import '../../styles/shared/variables.scss';
+
+.Button {
+  outline: none;
+  border-radius: 0;
+  border: none;
+  background: none;
+  padding: 5px 8px;
+  cursor: pointer;
+
+  .icon {
+    margin-right: 8px;
+  }
+}
+
+.btn-action {
+  border: 2px solid $action;
+  color: $action;
+}
+
+.btn-secondary {
+  background-color: $secondary;
+  color: $white;
+  border: 2px solid $white;
+}

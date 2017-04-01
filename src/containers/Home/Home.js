@@ -4,15 +4,25 @@ import { get } from 'lodash'
 
 import PathChooser from '../../components/PathChooser'
 
+import browserHistory from '../../browserHistory'
+
 import actions from '../../actions'
 
-import './Home.css'
+import './Home.scss'
 
 class Home extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     pending: PropTypes.bool.isRequired,
     movies: PropTypes.array.isRequired,
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { movies } = this.props
+
+    if (!nextProps.pending && !!nextProps.movies.length && movies !== nextProps.movies) {
+      browserHistory.push('/movies')
+    }
   }
 
   onPathSelect = files => {
@@ -30,23 +40,6 @@ class Home extends Component {
       <div className='Home'>
         <PathChooser onPathSelect={this.onPathSelect} />
         {pending && <p>LOADING...</p>}
-
-        {!!movies.length && (
-          <video width="320" height="240" controls>
-            <source src={movies[0].src} type={movies[0].format} />
-          </video>
-        )}
-
-
-        <div className="posters">
-          {movies.map(({ poster, title }, index) => (
-            <img
-              key={index}
-              src={poster}
-              alt={title}
-            />
-          ))}
-        </div>
       </div>
     )
   }

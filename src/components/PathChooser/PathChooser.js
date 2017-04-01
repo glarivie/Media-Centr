@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 
+import Button from '../Button'
+
 import './PathChooser.css'
 
 const URL = window.URL || window.webkitURL
@@ -24,6 +26,7 @@ class PathChooser extends Component {
         return acc.concat({
           name: file.name,
           format: file.type,
+          path: file.webkitRelativePath,
           src: URL.createObjectURL(file),
         })
       }, [])
@@ -41,9 +44,13 @@ class PathChooser extends Component {
           multiple
           hidden
         />
-        <button type="button" onClick={() => this._file.click()}>
+        <Button
+          icon="ion-folder"
+          version="secondary"
+          onClick={() => this._file.click()}
+        >
           Choose directory
-        </button>
+        </Button>
       </div>
     )
   }
