@@ -6,6 +6,7 @@ import { get } from 'lodash'
 import Navigation from '../../components/Navigation'
 
 import actions from '../../actions'
+import browserHistory from '../../browserHistory'
 
 import './App.scss'
 
@@ -17,12 +18,17 @@ class App extends Component {
     genres: PropTypes.array.isRequired,
   }
 
-  componentDidMount() {
+  componentWillMount () {
+    const { genres } = this.props
+    if (!genres.length) { browserHistory.push('/') }
+  }
+
+  componentDidMount () {
     this.updateWindowWidth()
     window.addEventListener('resize', this.updateWindowWidth)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     window.removeEventListener('resize', this.updateWindowWidth)
   }
 
@@ -38,7 +44,7 @@ class App extends Component {
 
     return (
       <div className="App" ref={c => this._app = c}>
-        <Navigation pathname={location.pathname} genres={genres} />
+        <Navigation query={get(location, 'query.genre')} genres={genres} />
         <main>{children}</main>
       </div>
     )

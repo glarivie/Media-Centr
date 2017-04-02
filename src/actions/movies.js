@@ -17,8 +17,6 @@ const fetchMoviesInfos = files => async dispatch => {
       const { title, year } = movies[index]
       const { data, status } = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${year}&plot=full`)
 
-      console.log(index, title, year, status)
-
       if (status !== 200) continue
 
       movies[index] = {

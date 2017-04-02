@@ -1,22 +1,23 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import cx from 'classnames'
+import { isUndefined } from 'lodash'
 
 import './Navigation.scss'
 
-const Navigation = ({ pathname, genres }) => (
+const Navigation = ({ query, genres }) => (
   <nav className="Navigation">
     {!genres.length ? (
       <Link
         to="/"
-        className={cx('item', { active: pathname === '/' })}
+        className={cx('item', { active: isUndefined(query) })}
       >
         Choose folder
       </Link>
     ) : (
       <Link
         to="/movies"
-        className={cx('item', { active: pathname === '/movies' })}
+        className={cx('item', { active: isUndefined(query) })}
       >
         All
       </Link>
@@ -26,7 +27,7 @@ const Navigation = ({ pathname, genres }) => (
       <Link
         key={genre}
         to={`/movies?genre=${genre}`}
-        className={cx('item', { active: pathname === `/movies?genre=${genre}` })}
+        className={cx('item', { active: query === genre })}
       >
         {genre}
       </Link>
@@ -35,7 +36,7 @@ const Navigation = ({ pathname, genres }) => (
 )
 
 Navigation.propTypes = {
-  pathname: PropTypes.string.isRequired,
+  query: PropTypes.string,
   genres: PropTypes.array.isRequired,
 }
 
