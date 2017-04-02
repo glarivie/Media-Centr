@@ -11,7 +11,7 @@ const Movies = ({ pending, movies, location }) => (
     {movies.map((movie, index) => {
       const filter = get(location, 'query.genre')
 
-      if (isUndefined(filter) || movie.genre.includes(filter))
+      if (isUndefined(filter) || get(movie, 'genre', '').includes(filter))
         return <Movie key={index} {...movie} />
 
       return false

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import tnp from 'torrent-name-parser'
-import { mapKeys, uniq } from 'lodash'
+import { mapKeys, uniq, get } from 'lodash'
 
 import { uniqueID } from '../helpers'
 
@@ -17,6 +17,8 @@ const fetchMoviesInfos = files => async dispatch => {
       const { title, year } = movies[index]
       const { data, status } = await axios.get(`http://www.omdbapi.com/?t=${title}&y=${year}&plot=full`)
 
+      console.log(index, title, year, status)
+
       if (status !== 200) continue
 
       movies[index] = {
@@ -26,7 +28,7 @@ const fetchMoviesInfos = files => async dispatch => {
       }
     }
 
-    const genres = uniq(movies.reduce((acc, { genre }) => acc.concat(genre.split(', ')), [])).sort()
+    const genres = uniq(movies.reduce((acc, movie) => acc.concat(get(movie, 'genre', '').split(', ')), [])).sort()
 
     dispatch({ type: 'FETCH_MOVIES_INFOS_SUCCESS', data: movies })
     dispatch({ type: 'FETCH_MOVIES_GENRE_SUCCESS', data: genres })

@@ -20,7 +20,7 @@ Player.propTypes = {
 
 const mapStateToProps = ({ movies, app }, { params }) => ({
   movie: get(movies, 'movies', []).find(({ _id }) => _id === params.id),
-  width: get(app, 'width', 320) * 0.8,
+  width: get(app, 'width', 320) - 250,
 })
 
 export default connect(mapStateToProps)(Player)
