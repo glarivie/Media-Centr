@@ -1,6 +1,13 @@
 .Movies {
-  flex-basis: 100%;
+  width: 100%;
   padding: 42px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+
+  .list {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+  }
 }
