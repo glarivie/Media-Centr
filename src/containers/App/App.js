@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
+import { get } from 'lodash'
 
 import Navigation from '../../components/Navigation'
 
@@ -13,6 +14,7 @@ class App extends Component {
     children: PropTypes.node.isRequired,
     dispatch: PropTypes.func.isRequired,
     location: PropTypes.object.isRequired,
+    genres: PropTypes.array.isRequired,
   }
 
   componentDidMount() {
@@ -32,15 +34,19 @@ class App extends Component {
   }
 
   render() {
-    const { children, location } = this.props
+    const { children, location, genres } = this.props
 
     return (
       <div className="App" ref={c => this._app = c}>
-        <Navigation pathname={location.pathname} />
-        {children}
+        <Navigation pathname={location.pathname} genres={genres} />
+        <main>{children}</main>
       </div>
     )
   }
 }
 
-export default connect()(App)
+const mapStateToProps = ({ movies }) => ({
+  genres: get(movies, 'genres', [])
+})
+
+export default connect(mapStateToProps)(App)

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import tnp from 'torrent-name-parser'
-import { mapKeys } from 'lodash'
+import { mapKeys, uniq } from 'lodash'
 
 import { uniqueID } from '../helpers'
 
@@ -26,7 +26,10 @@ const fetchMoviesInfos = files => async dispatch => {
       }
     }
 
+    const genres = uniq(movies.reduce((acc, { genre }) => acc.concat(genre.split(', ')), [])).sort()
+
     dispatch({ type: 'FETCH_MOVIES_INFOS_SUCCESS', data: movies })
+    dispatch({ type: 'FETCH_MOVIES_GENRE_SUCCESS', data: genres })
   } catch (err) {
     console.error(err)
   }

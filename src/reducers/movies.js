@@ -14,6 +14,11 @@ const moviesReducer = (state = {}, action) => {
         movies: action.data,
         pending: false,
       }
+    case 'FETCH_MOVIES_GENRE_SUCCESS':
+      return {
+        ...state,
+        genres: action.data,
+      }
     default:
       return state;
   }

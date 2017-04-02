@@ -1,20 +1,28 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { get } from 'lodash'
+import { get, isUndefined } from 'lodash'
 
 import Movie from '../../components/Movie'
 
 import './Movies.scss'
 
-const Movies = ({ pending, movies }) => (
+const Movies = ({ pending, movies, location }) => (
   <div className="Movies">
-    {movies.map((movie, index) => <Movie key={index} {...movie} />)}
+    {movies.map((movie, index) => {
+      const filter = get(location, 'query.genre')
+
+      if (isUndefined(filter) || movie.genre.includes(filter))
+        return <Movie key={index} {...movie} />
+
+      return false
+    })}
   </div>
 )
 
 Movies.propTypes = {
   pending: PropTypes.bool.isRequired,
   movies: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = ({ movies }) => ({
